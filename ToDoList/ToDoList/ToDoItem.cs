@@ -23,15 +23,23 @@ namespace MyApp
 
         public String CompletedText()
         {
-            if (Completed) return "Completed";
-            else return "Not completed";
+            if (Completed) return "✔  Completed ";
+            else return "❌  Not completed. ";
         }
 
         public ToDoItem(string name, int difficulty)
         {
             Name = name;
             Difficulty = difficulty;
-            Length = difficulty * TimeMultiplier;
+            if (difficulty > 5) Length = 5 * TimeMultiplier;
+            else if (difficulty <= 0)
+            {
+                Length = 1 * TimeMultiplier;
+            }
+            else
+            {
+                Length = difficulty * TimeMultiplier;
+            }
             _counter++;
             Id = _counter;
             Completed = false;
@@ -39,8 +47,20 @@ namespace MyApp
         }
 
         public void PrintInfo() 
+
         {
-            Console.WriteLine($" ID: {Id} | {Name} | {Length} minutes | {CompletedText()} ");
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine($"ID: {Id} | {Name} | {Length} minutes | {CompletedText()} ");
+        }
+
+        public void Complete()
+        {
+            if (Completed == true) Console.WriteLine($"Task | {Name} | is already completed");
+            else
+            {
+                Completed = true;
+                Console.WriteLine($"Task | {Name} | marked as completed. ");
+            }
         }
         
     }

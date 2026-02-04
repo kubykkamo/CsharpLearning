@@ -14,7 +14,7 @@ namespace MyApp
             if (items.Count == 0) Console.WriteLine("List is empty. ");
             else
             {
-
+                Console.WriteLine("--- My tasks ---");
                 foreach (var item in items)
                 {
                     item.PrintInfo();
@@ -22,6 +22,30 @@ namespace MyApp
             }
         }
 
+        public bool CompleteTask(int taskID)
+        {
+            ToDoItem taskToComplete = null;
+            foreach (var item in items)
+            {
+                if (taskID == item.Id)
+                {
+                    taskToComplete = item;
+                    break;
+                }
+              
+            }
+            if (taskToComplete == null)
+            {
+                Console.WriteLine("Task with this id does not exist");
+                return false;
+            }
+            else
+            {
+                
+                taskToComplete.Complete();
+                return true;
+            }
+        }
         public void AddTask()
         {
             string inputName;
@@ -41,7 +65,7 @@ namespace MyApp
 
             do
             {
-                Console.Write("Enter a task difficulty: ");
+                Console.Write("Enter a task difficulty (1 -5): ");
                 inputDifficulty = Console.ReadLine();
 
             } while (String.IsNullOrWhiteSpace(inputDifficulty) || !int.TryParse(inputDifficulty, out difficulty));
@@ -72,14 +96,14 @@ namespace MyApp
             return true;
         }
 
-        public int GetRemovalNumber() 
+        public int GetInputNumber() 
         {
             string input;
             int id;
             do
             {
                 PrintList();
-                Console.Write("Enter an ID of task you want to remove: ");
+          
                 input = Console.ReadLine();
 
             } while (String.IsNullOrWhiteSpace(input) || !int.TryParse(input, out id));
@@ -87,5 +111,4 @@ namespace MyApp
         }
     }
 
-    
 }

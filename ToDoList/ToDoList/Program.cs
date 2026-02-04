@@ -11,7 +11,7 @@ namespace MyApp {
             while (run)
             {
 
-                Console.WriteLine("Enter an action: 1 - Show my list | 2 - Add Task | 3 - Remove Task | 4 - Exit");
+                Console.WriteLine("\n\nEnter an action: 1 - Show my list | 2 - Add Task | 3 - Remove Task | \n4 - Complete task | 5 - Exit");
                 int choice;
                 string input = Console.ReadLine()?.Trim();
                 if (!int.TryParse(input, out choice))
@@ -29,12 +29,19 @@ namespace MyApp {
                     case 2:
                         todolist.AddTask();
                         break;
-                    
+          
                     case 3:
-                        int id = todolist.GetRemovalNumber();
+                        Console.Write("Enter an ID of task you want to remove: ");
+                        int id = todolist.GetInputNumber();
                         todolist.RemoveTask(id);
                         break;
                     case 4:
+                        Console.WriteLine("Enter an ID of a task you want to set completed: ");
+                        int completeID = todolist.GetInputNumber();
+                        todolist.CompleteTask(completeID);
+                        break;
+
+                    case 5:
                         run = false;
                         break;
                     default:
