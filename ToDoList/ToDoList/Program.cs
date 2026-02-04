@@ -1,24 +1,32 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using ToDoList;
+
 namespace MyApp {
     class Program
     {
         static void Main()
         {
+            Console.WriteLine("Hello, welcome to my To do App!");
             bool run = true;
             bool registered = false;
             ToDoList todolist = new ToDoList();
             while (run)
             {
 
-                Console.WriteLine("\n\nEnter an action: 1 - Show my list | 2 - Add Task | 3 - Remove Task | \n4 - Complete task | 5 - Exit");
-                int choice;
-                string input = Console.ReadLine()?.Trim();
-                if (!int.TryParse(input, out choice))
-                {
-                    Console.WriteLine("Please enter a valid number!");
-                    continue;
-                }
+                Console.Write("\n--- Menu ---" +            
+                    "\n1 - Show my list | 2 - Add Task | 3 - Remove Task | " +
+                    "\n4 - Complete task | 5 - Exit: " +
+                    "\n ------------"
+                    );
+
+                int choice = ConsoleHelper.GetInputNumber("\nEnter an action: ");
+               
+             
+                
+                    
+                    
+                
 
 
                 switch (choice)
@@ -31,13 +39,14 @@ namespace MyApp {
                         break;
           
                     case 3:
-                        Console.Write("Enter an ID of task you want to remove: ");
-                        int id = todolist.GetInputNumber();
-                        todolist.RemoveTask(id);
+                        todolist.PrintList();                   
+                        int removalID = ConsoleHelper.GetInputNumber("Enter an ID of task you want to remove:");
+                        
+                        todolist.RemoveTask(removalID);
                         break;
                     case 4:
-                        Console.WriteLine("Enter an ID of a task you want to set completed: ");
-                        int completeID = todolist.GetInputNumber();
+                        todolist.PrintList();                    
+                        int completeID = ConsoleHelper.GetInputNumber("Enter an ID of a task you want to set completed:");
                         todolist.CompleteTask(completeID);
                         break;
 
@@ -45,11 +54,16 @@ namespace MyApp {
                         run = false;
                         break;
                     default:
-                        Console.WriteLine("Invalid choice");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        ConsoleHelper.WriteError("Invalid choice!");
+                        Console.ResetColor();
                         break;
                 }
             }
         }
+     
+
+       
 
     } 
 }

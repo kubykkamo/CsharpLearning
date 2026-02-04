@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ToDoList;
 
 namespace MyApp
 {   
@@ -12,11 +13,11 @@ namespace MyApp
         public void PrintList()
         {
             Console.OutputEncoding = Encoding.UTF8;
-            if (items.Count == 0) Console.WriteLine("List is empty. ");
+            if (items.Count == 0) ConsoleHelper.WriteError("List is empty.");
             else
             {
-                Console.WriteLine("--- My tasks ---");
-                Console.WriteLine("📝 Incompleted tasks -----");
+                Console.WriteLine("\n--- My tasks ---");
+                Console.WriteLine("\n📝 Incompleted tasks -----");
                 Console.ForegroundColor = ConsoleColor.Red;
                 
                 foreach (var item in items)
@@ -25,7 +26,7 @@ namespace MyApp
                     { item.PrintInfo(); }
                 }
                 Console.ResetColor();
-                Console.WriteLine("✅ Finished tasks -----");
+                Console.WriteLine("\n✅ Finished tasks -----");
                 Console.ForegroundColor = ConsoleColor.Green;
                 foreach (var item in items)
                 {
@@ -39,6 +40,11 @@ namespace MyApp
 
         public bool CompleteTask(int taskID)
         {
+            if (items.Count == 0)
+            {
+                ConsoleHelper.WriteError("No tasks yet.");
+                return false;
+            }
             ToDoItem taskToComplete = null;
             foreach (var item in items)
             {
@@ -51,7 +57,7 @@ namespace MyApp
             }
             if (taskToComplete == null)
             {
-                Console.WriteLine("Task with this id does not exist");
+               
                 return false;
             }
             else
@@ -64,7 +70,6 @@ namespace MyApp
         public void AddTask()
         {
             string inputName;
-            string inputDifficulty;
             string name;
             int difficulty;
 
@@ -76,16 +81,14 @@ namespace MyApp
 
             } while (String.IsNullOrWhiteSpace(inputName));
             name = inputName;
-            Console.WriteLine($"Name: {name} registered.");
+            ConsoleHelper.WriteSuccess($"Name: {name} registered.");
 
-            do
-            {
-                Console.Write("Enter a task difficulty (1 - 5): ");
-                inputDifficulty = Console.ReadLine();
-
-            } while (String.IsNullOrWhiteSpace(inputDifficulty) || !int.TryParse(inputDifficulty, out difficulty));
+            
+             difficulty = ConsoleHelper.GetInputNumber("Enter a task difficulty (1 - 5): ");
+         
 
             items.Add(new ToDoItem(name, difficulty));
+            ConsoleHelper.WriteSuccess($"Task - {name} successfully added.");
         }
 
         public bool RemoveTask(int id)
@@ -103,27 +106,15 @@ namespace MyApp
             }
             if (itemToRemove == null)
             {
-                Console.WriteLine("Task with this id does not exist");
+                ConsoleHelper.WriteError("Task with this ID does not exist.");
                 return false;
             }
             items.Remove(itemToRemove);
-            Console.WriteLine($"Task with ID {id} removed.");
+            ConsoleHelper.WriteSuccess($"Task with ID {id} removed.");
             return true;
         }
 
-        public int GetInputNumber() 
-        {
-            string input;
-            int id;
-            do
-            {
-                PrintList();
-          
-                input = Console.ReadLine();
-
-            } while (String.IsNullOrWhiteSpace(input) || !int.TryParse(input, out id));
-            return id;
-        }
+        
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ToDoList;
 
 namespace MyApp
 {
@@ -59,7 +60,7 @@ namespace MyApp
             else
             {
                 Completed = true;
-                Console.WriteLine($"Task | {Name} | marked as completed. ");
+                ConsoleHelper.WriteSuccess($"Task | {Name} | marked as completed. ");
             }
         }
         
