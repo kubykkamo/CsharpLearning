@@ -11,14 +11,29 @@ namespace MyApp
 
         public void PrintList()
         {
+            Console.OutputEncoding = Encoding.UTF8;
             if (items.Count == 0) Console.WriteLine("List is empty. ");
             else
             {
                 Console.WriteLine("--- My tasks ---");
+                Console.WriteLine("📝 Incompleted tasks -----");
+                Console.ForegroundColor = ConsoleColor.Red;
+                
                 foreach (var item in items)
                 {
-                    item.PrintInfo();
+                    if (!item.Completed)
+                    { item.PrintInfo(); }
                 }
+                Console.ResetColor();
+                Console.WriteLine("✅ Finished tasks -----");
+                Console.ForegroundColor = ConsoleColor.Green;
+                foreach (var item in items)
+                {
+                    if (item.Completed)
+                    { item.PrintInfo(); }
+                }
+                Console.ResetColor();
+
             }
         }
 
@@ -65,7 +80,7 @@ namespace MyApp
 
             do
             {
-                Console.Write("Enter a task difficulty (1 -5): ");
+                Console.Write("Enter a task difficulty (1 - 5): ");
                 inputDifficulty = Console.ReadLine();
 
             } while (String.IsNullOrWhiteSpace(inputDifficulty) || !int.TryParse(inputDifficulty, out difficulty));
