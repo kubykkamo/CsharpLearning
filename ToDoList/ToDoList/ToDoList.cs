@@ -9,7 +9,60 @@ namespace MyApp
     public class ToDoList
     {
         public List<ToDoItem> items = new List<ToDoItem>();
+        public ToDoList()
+        {
+            Load();
+        }
 
+        public void Save()
+        {
+            List<string> linesToSave = new List<string>();
+
+            foreach (var item in items)
+            {
+                string line = $"{item.Name}${item.Difficulty}${item.Completed}";
+                linesToSave.Add(line);
+            }
+
+            File.WriteAllLines("tasks.txt", linesToSave);
+            ConsoleHelper.WriteSuccess("Tasks sucessfully saved.");
+        }
+
+        public void Load()
+        {
+            if (!File.Exists("tasks.txt"))
+            {
+                ConsoleHelper.WriteError("Save file was not found.");
+                return;
+            }
+
+            string[] lines = File.ReadAllLines("tasks.txt");
+
+            items.Clear();
+            int counter = 0;
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split('$');
+                if (parts.Length == 3)
+                {
+                    string name = parts[0];
+
+                    if (int.TryParse(parts[1], out int difficulty) && bool.TryParse(parts[2], out bool isCompleted))
+                    {
+                        ToDoItem loadedTask = new ToDoItem(name, difficulty);
+                        loadedTask.Completed = isCompleted;
+                        items.Add(loadedTask);
+                        counter++;
+                        
+                    }
+                    
+
+                }
+            }
+            ConsoleHelper.WriteSuccess($"{counter} tasks loaded.");
+            ConsoleHelper.WriteSuccess("Save file successfully loaded.");
+        }
         public void PrintList()
         {
             Console.OutputEncoding = Encoding.UTF8;

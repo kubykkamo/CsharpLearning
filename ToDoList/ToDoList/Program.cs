@@ -11,6 +11,7 @@ namespace MyApp {
             bool run = true;
             bool registered = false;
             ToDoList todolist = new ToDoList();
+            
             while (run)
             {
 
@@ -22,13 +23,6 @@ namespace MyApp {
 
                 int choice = ConsoleHelper.GetInputNumber("\nEnter an action: ");
                
-             
-                
-                    
-                    
-                
-
-
                 switch (choice)
                 {
                     case 1:
@@ -37,11 +31,9 @@ namespace MyApp {
                     case 2:
                         todolist.AddTask();
                         break;
-          
                     case 3:
                         todolist.PrintList();                   
                         int removalID = ConsoleHelper.GetInputNumber("Enter an ID of task you want to remove:");
-                        
                         todolist.RemoveTask(removalID);
                         break;
                     case 4:
@@ -49,9 +41,11 @@ namespace MyApp {
                         int completeID = ConsoleHelper.GetInputNumber("Enter an ID of a task you want to set completed:");
                         todolist.CompleteTask(completeID);
                         break;
-
                     case 5:
+                        todolist.Save();
                         run = false;
+                        Console.WriteLine("Press any key to exit..");
+                        Console.ReadKey();
                         break;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -60,11 +54,12 @@ namespace MyApp {
                         break;
                 }
             }
+            
         }
      
 
        
-
+     
     } 
 }
 
