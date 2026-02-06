@@ -20,6 +20,10 @@ namespace ToDoList
             {
                 Console.Write(question + " ");
                 string input = Console.ReadLine();
+                if (input == "q" || input == "Q")
+                {
+                    return 99;
+                }
 
 
                 if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out id))

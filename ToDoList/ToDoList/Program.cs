@@ -33,12 +33,12 @@ namespace MyApp {
                         break;
                     case 3:
                         todolist.PrintList();                   
-                        int removalID = ConsoleHelper.GetInputNumber("Enter an ID of task you want to remove:");
+                        int removalID = ConsoleHelper.GetInputNumber("Enter an ID of task you want to remove or 'q' to exit:");
                         todolist.RemoveTask(removalID);
                         break;
                     case 4:
                         todolist.PrintList();                    
-                        int completeID = ConsoleHelper.GetInputNumber("Enter an ID of a task you want to set completed:");
+                        int completeID = ConsoleHelper.GetInputNumber("Enter an ID of a task you want to set completed or 'q' to exit:");
                         todolist.CompleteTask(completeID);
                         break;
                     case 5:

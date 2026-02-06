@@ -129,8 +129,10 @@ namespace MyApp
 
             do
             {
+                Console.WriteLine("\nEnter 'q' to enter main menu. ");
                 Console.Write("Enter a task name: ");
                 inputName = Console.ReadLine();
+                if (inputName == "Q" || inputName == "q") return;
 
             } while (String.IsNullOrWhiteSpace(inputName));
             name = inputName;
@@ -147,6 +149,7 @@ namespace MyApp
         public bool RemoveTask(int id)
         {
             ToDoItem itemToRemove = null;
+            if (id == 99) return false;
             foreach (var item in items)
             {
                 if (item.Id == id)
