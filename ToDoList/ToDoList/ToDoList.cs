@@ -149,7 +149,7 @@ namespace MyApp
         public bool RemoveTask(int id)
         {
             ToDoItem itemToRemove = null;
-            if (id == 99) return false;
+            if (id == -1) return false;
             foreach (var item in items)
             {
                 if (item.Id == id)

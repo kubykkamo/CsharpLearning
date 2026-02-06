@@ -22,7 +22,7 @@ namespace ToDoList
                 string input = Console.ReadLine();
                 if (input == "q" || input == "Q")
                 {
-                    return 99;
+                    return -1;
                 }
 
 
